@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import HttpStatusCodes from './declarations/HttpStatusCodes';
 import { RouteError } from './declarations/classes';
-import BaseRouter from '../routes/api';
+import BaseRouter from './routes/api';
 const app = express();
 const port = 3000;
 
@@ -10,11 +11,16 @@ app.use(express.json());
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
+app.get('/', (req : Request, res : Response) => {
   res.send('Inicio proyecto!');
 });
 
 app.use('/api', BaseRouter);
+
+mongoose.connect('mongodb://localhost:27017/local', {}, 
+() => {
+  console.log('connected to database')
+})
 
 // Setup error handler
 app.use((
