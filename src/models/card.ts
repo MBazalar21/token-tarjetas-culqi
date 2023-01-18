@@ -1,37 +1,12 @@
 import * as mongoose from 'mongoose';
 import * as validator from 'validator';
-
-interface ICard {
-  save(): ICard;
-  card_number: number;
-  cvv: number;
-  cardType: string;
-  expiration_year: string;
-  expiration_month: string;
-  email: string;
-  tokenJwt: string;
-}
-
-interface CardDoc  extends mongoose.Document {
-    card_number: number;
-    cvv: number;
-    cardType: string;
-    expiration_year: string;
-    expiration_month: string;
-    email: string;
-    tokenJwt: string;
-}
-
-interface cardModelInterface extends mongoose.Model<CardDoc> {
-  build(attr: ICard) : CardDoc
-}
+import {ICard , CardDoc , cardModelInterface} from '../interfaces/card'
 
 const cardSchema = new mongoose.Schema({
   card_number: {
     type: Number,
     validate: {
       validator: function (card_number: number) {
-        console.log(card_number)
         if (card_number.toString().length < 13 || card_number.toString().length > 16) {
           return false;
         }
@@ -121,25 +96,24 @@ const luhnCheck = (card_number: number) => {
   let sum = 0;
   let shouldDouble = false;
   for (let i = card_number.toString().length - 1; i >= 0; i--) {
-      let digit = parseInt(card_number.toString().charAt(i));
-      if (shouldDouble) {
-          digit *= 2;
-          if (digit > 9) {
-              digit = digit % 10 + 1;
-          }
+    let digit = parseInt(card_number.toString().charAt(i));
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) {
+        digit = digit % 10 + 1;
       }
-      sum += digit;
-      shouldDouble = !shouldDouble;
+    }
+    sum += digit;
+    shouldDouble = !shouldDouble;
   }
   return (sum % 10) === 0;
 }
 
 cardSchema.statics.build = (attr:ICard) => {
-    return new Card(attr)
+  return new Card(attr)
 }
 
 const Card = mongoose.model<CardDoc,cardModelInterface>('Card', cardSchema);
 
 // **** Export default **** //
-
 export { Card };
