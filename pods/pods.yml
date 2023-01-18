@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: token-tarjetas-culqi
+  labels:
+    app: token-tarjetas-culqi
+spec:
+  containers:
+  - name: token-tarjetas-culqi
+    image: kamana/token-tarjetas-culqi:v1
+    ports:
+      -containerPort: 8080
