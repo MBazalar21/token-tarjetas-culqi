@@ -9,5 +9,5 @@ spec:
     - name: token-tarjetas-culqi
       image: kamana/token-tarjetas-culqi:v1
       ports:
-        - containerPort: 8080
+        - containerPort: 3000
   restartPolicy: Always
