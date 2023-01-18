@@ -9,5 +9,5 @@ spec:
     - image: token-tarjetas-culqi:v1
       name: token-tarjetas-culqi
       ports:
-      - containerPort: 3000
+      - containerPort: 8080
   restartPolicy: Always
