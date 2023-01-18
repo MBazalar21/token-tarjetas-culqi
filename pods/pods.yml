@@ -6,7 +6,7 @@ metadata:
     app: token-tarjetas-culqi
 spec:
   containers:
-  - name: token-tarjetas-culqi
-    image: kamana/token-tarjetas-culqi:v1
-    ports:
-      containerPort: 8080
+    - name: token-tarjetas-culqi
+      image: kamana/token-tarjetas-culqi:v1
+      ports:
+        - containerPort: 8080
