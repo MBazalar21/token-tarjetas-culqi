@@ -6,8 +6,8 @@ metadata:
     app: token-tarjetas-culqi
 spec:
   containers:
-    - image: token-tarjetas-culqi-prueba
-      name: token-tarjetas-culqi
+    - name: token-tarjetas-culqi
+      image: token-tarjetas-culqi-prueba
       ports:
       - containerPort: 3000
   restartPolicy: Always
